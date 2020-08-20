@@ -81,3 +81,12 @@ resource "kubernetes_config_map" "aws_auth" {
     mapAccounts = yamlencode(var.map_accounts)
   }
 }
+    
+    resource "aws_ebs_snapshot" "example_snapshot" {
+  # ebs snapshot without encryption
+  volume_id   = "${aws_ebs_volume.web_host_storage.id}"
+  description = "${local.resource_prefix.value}-ebs-snapshot"
+  tags = {
+    Name = "${local.resource_prefix.value}-ebs-snapshot"
+  }
+}
